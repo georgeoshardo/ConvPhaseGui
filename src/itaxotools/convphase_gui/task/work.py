@@ -71,10 +71,9 @@ def _get_sequences_from_phased_data(
 
     for sequence in sequences:
         try:
-            # SeqPhase automatically replaces spaces...
-            phased_id = sequence.id.replace(" ", "_")
-            # and cuts everything after a bar...
-            phased_id = sequence.id.split("|")[0]
+            # SeqPhase cuts everything after a bar and replaces spaces
+            # with underscores, so normalize in that same order.
+            phased_id = sequence.id.split("|")[0].replace(" ", "_")
             line = phased_dict[phased_id]
         except KeyError:
             raise Exception(
